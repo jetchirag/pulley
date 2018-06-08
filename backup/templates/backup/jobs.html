@@ -1,0 +1,53 @@
+{% extends "base/base.html" %}
+{% block title %}Dashboard - Sysmonitor{% endblock %}
+
+{% block content %}
+<main class="main-content bgc-grey-100">
+   <div id="mainContent">
+      <div class="container-fluid">
+         <h4 class="c-grey-900 mT-10 mB-30">Configure backup jobs on this page</h4>
+         <div class="row">
+            <div class="col-md-12">
+               <div class="bgc-white bd bdrs-3 p-20 mB-20">
+                 <a href="{% url 'addJob' %}" class="btn btn-primary">Add</a><hr>
+                  <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                     <thead>
+                        <tr>
+                           <th>Name</th>
+                           <th>Hostname</th>
+                           <th>Schedules</th>
+                           <th>Type</th>
+                           <th>Last ran</th>
+                           <th>Options</th>
+                        </tr>
+                     </thead>
+                     <tfoot>
+                        <tr>
+                           <th>Name</th>
+                           <th>Hostname</th>
+                           <th>Schedules</th>
+                           <th>Type</th>
+                           <th>Last ran</th>
+                           <th>Options</th>
+                        </tr>
+                     </tfoot>
+                     <tbody>
+                        {% for job in jobs %}
+                         <tr>
+                           <td>{{ job.name }}</td>
+                           <td>{{ job.hostname }}</td>
+                           <td>1</td>
+                           <td>{{ job.type }}</td>
+                           <td>{{ job.lastran }}</td>
+                           <td></td>
+                        </tr>
+                        {% endfor %}
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</main>
+{% endblock %}

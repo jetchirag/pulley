@@ -1,0 +1,78 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Dashboard - Sysmonitor{% endblock %}
+
+{% block content %}
+<main class="main-content bgc-grey-100" ng-controller="addJob">
+    <div id="mainContent">
+        <div class="container-fluid">
+            <h4 class="c-grey-900 mT-10 mB-30">Add backup jobs</h4>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="bgc-white p-20 bd">
+                        <h6 class="c-grey-900">Complex Form Layout</h6>
+                        <div class="mT-30">
+                            <form>
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" ng-model="name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="type">Type</label>
+                                    <select id="type" class="form-control" name="type" ng-model="type" ng-change="changeType()">
+                                        <option value="SSH">SSH/SCP</option>
+                                        <option value="SFTP">SFTP</option>
+                                        <option value="FTP">FTPS</option>
+                                        <option value="FTP">FTP</option>
+                                        <option value="MySQL">MySQL</option>
+                                        <option value="cPanel">cPanel</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="text" class="form-control" id="email" name="email" ng-model="email" aria-describedby="emailHelp">
+                                    <small id="emailHelp" class="form-text text-muted">This is where you'll be notified if you chose to.</small>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="hostname">Hostname</label>
+                                    <input type="text" class="form-control" id="hostname" name="hostname" ng-model="hostname">
+                                </div>
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" class="form-control" id="username" name="username" ng-model="username">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" ng-model="password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="port">Port</label>
+                                    <input type="text" class="form-control" id="port" name="port" ng-model="port">
+                                </div>
+                                <div ng-show="showRemotePath" class="form-group">
+                                    <label for="remotePath">Remote Path</label>
+                                    <input type="text" class="form-control" id="remotePath" name="remotePath" ng-model="remotePath">
+                                </div>
+                                <div ng-show="showUseSSL" class="form-group">
+                                    <label for="useSSL">Should SSL be used?</label>
+                                    <select class="form-control" id="useSSL" name="useSSL" ng-model="useSSL">
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                </div>
+                                <button type="button" ng-click="createWebsite()" class="btn btn-primary">Add this job</button>
+                                <span ng-show="isLoading" class="px-4"><img src="/static/loader.gif"></span>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="{% static 'backup/add_job.js' %}"></script>
+{% endblock %}
