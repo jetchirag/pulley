@@ -13,7 +13,6 @@ import logic.testLogins as testLogins
 
 def testLogin(data):
     if (data['type'] == 'SFTP'):
-#         return testLogins.testSFTP('test.rebex.net', 'demo', 'password', 22, '/')
         return testLogins.testSFTP(data['hostname'], data['username'], data['password'], data['port'], data['remotePath'])
         
         
@@ -35,7 +34,7 @@ def submitAddJob(request):
         if form.is_valid():
             loginResult = testLogin(data)
             if (loginResult == True):
-                form.save()
+                #form.save()
                 data_ret = {'status': 1, 'error_message': ""}
             else:
                 data_ret = {'status': 0, 'error_message': str(loginResult)}

@@ -1,46 +1,42 @@
 from ftplib import FTP, FTP_TLS
 import paramiko
+import sftpAPI
 
-def testFTP(hostname, username, password, port, directory, passive):
+def testFTP(hostname, username, password, port, path, passive):
     try:
         ftp = FTP()
         ftp.connect(hostname, port, timeout=10)
         ftp.login(username, password)
         ftp.set_pasv(passive)
-        ftp.cwd("/")
+        ftp.cwd(path)
         files = ftp.dir()
         ftp.quit()
         return True
     except BaseException as error:
         return error
 
-def testFTPS(hostname, username, password, port, directory, passive):
+def testFTPS(hostname, username, password, port, path, passive):
     try:
         ftp = FTP_TLS()
         ftp.connect(hostname, port)
         ftp.login(username, password)
         ftp.prot_p()
         ftp.set_pasv(passive)
-        ftp.cwd("/")
+        ftp.cwd(path)
         files = ftp.dir()
         ftp.quit()
         return True
     except BaseException as error:
         return error
 
-def testSFTP(hostname, username, password, port, directory):
-    try:
-        transport = paramiko.Transport((hostname, int(port)))
-        transport.connect(username=username, password=password)
-#         sftp = paramiko.SFTPClient.from_transport(transport)
-
-#         sftp.chdir(directory)
-#         files = sftp.listdir()
-#         sftp.close()
+def testSFTP(hostname, username, password, port, path):
+    login = sftpAPI.SFTP(hostname, port, username, password)
+    sftp = login.login()
+    if login.verify(sftp, path) == True:
         return True
-    except BaseException as error:
-        return error
+    else:
+        return False
 
 # print testFTP('test.rebex.net', 'demo', 'password', 21, '/', True)
 # print testFTPS('test.rebex.net', 'demo', 'password', 21, '/', True)
-print testSFTP('test.rebex.net', 'demo', 'password', 222, '/')
+# print testSFTP('test.rebex.net', 'demo', 'password', 22, '/')
